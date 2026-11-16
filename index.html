@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Pulse —— 一个轻量的动态广场，数据保存在本地浏览器。" />
+  <title>Pulse · 轻量动态广场</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%234f46e5'/%3E%3Cpath d='M7 17h4l2.5-6 4 12 2.5-6h5' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand__mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" width="22" height="22">
+            <path d="M4 17h5l3-7 5 14 3-7h8" fill="none" stroke="currentColor" stroke-width="2.6"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </span>
+        <div class="brand__text">
+          <strong>Pulse</strong>
+          <span>轻量动态广场</span>
+        </div>
+      </div>
+
+      <button type="button" class="profile-btn" id="profileBtn" title="编辑个人资料">
+        <span class="avatar" id="headerAvatar" aria-hidden="true">P</span>
+        <span class="profile-btn__meta">
+          <strong id="headerName">Pulse 用户</strong>
+          <small id="headerHandle">@me</small>
+        </span>
+      </button>
+    </header>
+
+    <main class="main">
+      <section class="card composer" aria-labelledby="composerTitle">
+        <h2 class="visually-hidden" id="composerTitle">发布新动态</h2>
+        <div class="composer__row">
+          <span class="avatar" id="composeAvatar" aria-hidden="true">P</span>
+          <div class="composer__body">
+            <label class="visually-hidden" for="composerInput">动态内容</label>
+            <textarea id="composerInput" class="composer__input" rows="3" maxlength="280"
+              placeholder="此刻有什么想法？"></textarea>
+            <div class="composer__footer">
+              <span class="counter" id="counter" aria-live="polite">
+                <span class="counter__ring" id="counterRing"></span>
+                <span id="counterText">280</span>
+              </span>
+              <button type="button" class="btn btn--primary" id="publishBtn" disabled>发布</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="feed-head">
+        <h2>最新动态</h2>
+        <span class="feed-head__count" id="postCount">0 条</span>
+      </div>
+
+      <section class="feed" id="feed" aria-live="polite" aria-label="动态列表"></section>
+
+      <div class="empty" id="empty" hidden>
+        <svg viewBox="0 0 24 24" width="40" height="40" aria-hidden="true">
+          <path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.5 9.5 0 0 1-3.9-.8L3 21l1.4-4.2A8.4 8.4 0 0 1 12 3.1a8.4 8.4 0 0 1 9 8.4Z"
+            fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <p>这里还很安静</p>
+        <span>发布你的第一条动态，开启这个广场。</span>
+      </div>
+
+      <footer class="footer">
+        <span>数据仅保存在你的浏览器 Local Storage 中</span>
+      </footer>
+    </main>
+  </div>
+
+  <dialog class="dialog" id="profileDialog" aria-labelledby="profileTitle">
+    <form method="dialog" class="dialog__form" id="profileForm">
+      <h2 class="dialog__title" id="profileTitle">个人资料</h2>
+      <p class="dialog__hint">仅保存在本地，用于展示你的昵称。</p>
+
+      <label class="field">
+        <span>昵称</span>
+        <input type="text" id="profileName" maxlength="20" placeholder="例如：小明" autocomplete="off" />
+      </label>
+
+      <label class="field">
+        <span>用户名</span>
+        <input type="text" id="profileHandle" maxlength="20" placeholder="例如：xiaoming" autocomplete="off" />
+      </label>
+
+      <div class="dialog__actions">
+        <button type="button" class="btn btn--ghost" id="profileCancel">取消</button>
+        <button type="submit" class="btn btn--primary" id="profileSave">保存</button>
+      </div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
